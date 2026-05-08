@@ -325,12 +325,10 @@ If the document doesn't strictly contain Drager Group data, do your best to extr
     });
     app.use(vite.middlewares);
   } else {
-    const distPath = path.join(__dirname, '..', 'dist', 'client');
-    const backupPath = path.join(__dirname, 'client');
-    const finalPath = fs.existsSync(distPath) ? distPath : backupPath;
-    app.use(express.static(finalPath));
+    const distPath = path.join(process.cwd(), 'dist');
+    app.use(express.static(distPath));
     app.get('*', (req, res) => {
-      res.sendFile(path.join(finalPath, 'index.html'));
+      res.sendFile(path.join(distPath, 'index.html'));
     });
   }
 
